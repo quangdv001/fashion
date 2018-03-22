@@ -25,11 +25,14 @@ Route::prefix('admin')->group(function () {
 
 });
 
+Route::group(['prefix' => 'admin'], function()
+{
+    Auth::routes();
+});
+
 Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function()
 {
-    Route::get('dashboard', function () {
-        echo "1";
-    });
+    Route::get('/home', 'HomeAdminController@index')->name('admin.home');
     Route::resource('banner','BannerController');
     Route::resource('content','ContentController');
 });

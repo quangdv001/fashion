@@ -14,9 +14,8 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banner = Banner::latest()->paginate(5);
-        return view('banner.index',compact('banner'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        $banner = Banner::latest();
+        return view('admin.banner.index',compact('banner'));
     }
 
     /**
@@ -26,7 +25,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return view('banner.create');
+        return view('admin.banner.create');
     }
 
     /**
@@ -37,11 +36,29 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
+        $request->validate([
             'title' => 'required',
-            'body' => 'required',
+            'img' => 'required|image',
         ]);
-        Banner::create($request->all());
+
+//        echo "<pre>";
+//        print_r($request->title);
+//        die();
+
+        $image = $request->file('img');
+        $input['img'] = time().'.'.$image->getClientOriginalExtension();
+        $destinationPath = public_path('/upload/banners');
+        $image->move($destinationPath, $input['img']);
+
+        $input['title'] = $request->title;
+        $input['status'] = 1;
+//        if($request->hasfile('img'))
+//        {
+//            $file = $request->file('img');
+//            $name=time().$file->getClientOriginalName();
+//            $file->move(public_path().'/images/', $name);
+//        }
+        Banner::create($input);
         return redirect()->route('banner.index')
             ->with('success','Banner created successfully');
     }
