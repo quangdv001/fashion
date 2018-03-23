@@ -22,17 +22,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('articles','ArticleController');
 
 Route::prefix('admin')->group(function () {
-
-});
-
-Route::group(['prefix' => 'admin'], function()
-{
     Auth::routes();
 });
 
-Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function()
-{
+Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/home', 'HomeAdminController@index')->name('admin.home');
     Route::resource('banner','BannerController');
     Route::resource('content','ContentController');
+    Route::get('banner/updateStatusBanner', 'AjaxController@updateStatusBanner');
 });

@@ -8,5 +8,7 @@
 <link href="{{ asset('admin/vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
 <!-- Datatables -->
 <link href="{{ asset('admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+<!-- Switchery -->
+<link href="{{ asset('admin/vendors/switchery/dist/switchery.min.css') }}" rel="stylesheet">
 <!-- Custom Theme Style -->
 <link href="{{ asset('admin/build/css/custom.min.css') }}" rel="stylesheet">

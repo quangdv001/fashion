@@ -14,7 +14,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banner = Banner::latest();
+        $banner = Banner::all();
         return view('admin.banner.index',compact('banner'));
     }
 
@@ -41,9 +41,6 @@ class BannerController extends Controller
             'img' => 'required|image',
         ]);
 
-//        echo "<pre>";
-//        print_r($request->title);
-//        die();
 
         $image = $request->file('img');
         $input['img'] = time().'.'.$image->getClientOriginalExtension();
@@ -52,12 +49,6 @@ class BannerController extends Controller
 
         $input['title'] = $request->title;
         $input['status'] = 1;
-//        if($request->hasfile('img'))
-//        {
-//            $file = $request->file('img');
-//            $name=time().$file->getClientOriginalName();
-//            $file->move(public_path().'/images/', $name);
-//        }
         Banner::create($input);
         return redirect()->route('banner.index')
             ->with('success','Banner created successfully');
@@ -71,8 +62,8 @@ class BannerController extends Controller
      */
     public function show($id)
     {
-        $article = Banner::find($id);
-        return view('banner.show',compact('article'));
+//        $article = Banner::find($id);
+//        return view('banner.show',compact('article'));
     }
 
     /**
@@ -83,8 +74,8 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        $article = Banner::find($id);
-        return view('banner.edit',compact('article'));
+        $banner = Banner::find($id);
+        return view('admin.banner.edit',compact('banner'));
     }
 
     /**
@@ -96,11 +87,20 @@ class BannerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        request()->validate([
+        $request->validate([
             'title' => 'required',
-            'body' => 'required',
         ]);
-        Banner::find($id)->update($request->all());
+
+        if ($request->hasfile('img')) {
+            $image = $request->file('img');
+            $input['img'] = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/upload/banners');
+            $image->move($destinationPath, $input['img']);
+        } else {
+            $input['img'] = $request->hidden_img;
+        }
+        $input['title'] = $request->title;
+        Banner::find($id)->update($input);
         return redirect()->route('banner.index')
             ->with('success','Banner updated successfully');
     }
@@ -116,5 +116,11 @@ class BannerController extends Controller
         Banner::find($id)->delete();
         return redirect()->route('banner.index')
             ->with('success','Banner deleted successfully');
+    }
+
+    public function updateStatusBanner(){
+        echo 1;die();
+        $request = request()->all();
+        return response()->json($request);
     }
 }
