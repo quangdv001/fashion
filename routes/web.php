@@ -11,23 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Auth::routes();
-
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+Route::get('/', 'HomeController@show')->name('show');
 Route::get('/home', 'HomeController@index')->name('home');
-
 Route::resource('articles','ArticleController');
-
 Route::prefix('admin')->group(function () {
     Auth::routes();
 });
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/home', 'HomeAdminController@index')->name('admin.home');
+    Route::get('/user', 'HomeAdminController@getListUser')->name('users.list');
+    Route::any('banner/updateStatusBanner', 'BannerController@updateStatusBanner');
     Route::resource('banner','BannerController');
     Route::resource('content','ContentController');
-    Route::get('banner/updateStatusBanner', 'AjaxController@updateStatusBanner');
+
 });

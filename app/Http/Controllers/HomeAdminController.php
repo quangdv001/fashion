@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class HomeAdminController extends Controller
 {
@@ -24,5 +25,10 @@ class HomeAdminController extends Controller
     public function index()
     {
         return view('admin.dashboard');
+    }
+
+    public function getListUser(){
+        $user = User::all();
+        return view('admin.user.index',compact('user'));
     }
 }

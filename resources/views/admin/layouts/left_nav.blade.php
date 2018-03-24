@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
-            <a href="{{route('admin.home')}}" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+            <a href="{{route('admin.home')}}" class="site_title"><i class="fa fa-paw"></i> <span>Em18.vn</span></a>
         </div>
 
         <div class="clearfix"></div>
@@ -35,14 +35,16 @@
                             <li><a href="{{route('admin.home')}}">Dashboard</a></li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-user"></i> Users <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="form.html">General Form</a></li>
-                            <li><a href="form_advanced.html">Advanced Components</a></li>
-                            <li><a href="form_validation.html">Form Validation</a></li>
-                            <li><a href="form_wizards.html">Form Wizard</a></li>
-                            <li><a href="form_upload.html">Form Upload</a></li>
-                            <li><a href="form_buttons.html">Form Buttons</a></li>
+                            <li><a href="{{ route('users.list') }}">Danh sách User</a></li>
+                            <li><a href="{{ route('register') }}">Thêm mới User</a></li>
+                        </ul>
+                    </li>
+                    <li><a><i class="fa fa-edit"></i> Contents <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('content.index') }}">Danh sách Contents</a></li>
+                            <li><a href="{{ route('content.create') }}">Thêm mới Contents</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-desktop"></i> Banners <span class="fa fa-chevron-down"></span></a>

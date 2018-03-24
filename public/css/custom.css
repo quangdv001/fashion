@@ -1,0 +1,215 @@
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    overflow: hidden;
+
+}
+
+.container {
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: hidden;
+
+}
+
+.container {
+
+    overflow: hidden;
+
+    position: relative;
+
+}
+
+.inner {
+
+    position: relative;
+
+    width: 9999px;
+
+    left: 0;
+
+    top: 0;
+
+}
+
+.innerwraper {
+
+    float: left;
+
+    overflow: hidden;
+
+}
+
+.innerwraper img {
+
+    overflow: hidden;
+
+}
+
+.clearfix {
+
+    *zoom: 1;
+
+}
+
+.clearfix:after {
+
+    display: block;
+
+    clear: both;
+
+    visibility: hidden;
+
+    content: "";
+
+    height: 0;
+
+}
+
+a {
+
+    text-decoration: none;
+
+}
+
+.foot {
+
+    height: 80px;
+
+    line-height: 80px;
+
+    width: 100%;
+
+}
+
+.foot,
+.menu,
+.cp {
+
+    display: flex;
+
+    flex-direction: row;
+
+    background-color: #fff;
+
+}
+
+.foot .menu {
+
+    width: 25%;
+
+    float: left;
+
+    margin-left: 70px;
+
+    color: #666;
+
+}
+
+.menu-left {
+
+    font-size: 18px;
+
+    float: left;
+
+}
+
+.menu-right {
+
+    margin: 0 0 0 auto;
+
+    float: right;
+
+}
+
+.foot .about {
+
+    width: 50%;
+
+}
+
+.about {
+
+    background-color: #eee;
+
+    float: left;
+
+}
+
+.about .us {
+
+    text-decoration: none;
+
+}
+
+.about .us,
+.about .hotline,
+.about .blog {
+
+    float: right;
+
+    color: #666;
+
+}
+
+.blog {
+
+    height: 24px;
+
+    width: 30px;
+
+    padding-right: 20px;
+
+    padding-top: 28px;
+
+}
+
+.blog {
+
+    margin-left: 0;
+
+}
+
+.foot .cp {
+
+    margin: 0 10px 0 auto;
+
+}
+
+.cp {
+
+    float: right;
+
+}
+
+.close {
+
+    position: relative;
+
+    left: 1094px;
+
+    top: 138px;
+
+}
+
+.text-hotline{
+    color: #474747;
+    font-size: 15px;
+    display: inline-block;
+    float: right;
+    width: 200px;
+}
+.text-aboutus{
+    color: #474747;
+    font-size: 15px;
+    display: inline-block;
+    /*float: right;*/
+    width: 200px;
+    text-align: center;
+}

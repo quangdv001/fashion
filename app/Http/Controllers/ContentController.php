@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Content;
 
 class ContentController extends Controller
 {
@@ -13,9 +14,8 @@ class ContentController extends Controller
      */
     public function index()
     {
-        $content = Content::latest()->paginate(5);
-        return view('content.index',compact('content'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        $content = Content::getLatestContent();
+        return view('admin.content.index',compact('content'));
     }
 
     /**
@@ -25,7 +25,7 @@ class ContentController extends Controller
      */
     public function create()
     {
-        return view('content.create');
+        return view('admin.content.create');
     }
 
     /**
@@ -36,11 +36,35 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'title' => 'required',
-            'body' => 'required',
+        $request->validate([
+            'about_us' => 'required',
+            'hot_line' => 'required',
+            'logo' => 'required|image',
+            'img_about' => 'required|image',
         ]);
-        Content::create($request->all());
+
+        $image = $request->file('logo');
+        $input['logo'] = time().'-logo.'.$image->getClientOriginalExtension();
+        $destinationPath = public_path('/upload/contents');
+        $image->move($destinationPath, $input['logo']);
+
+        $image = $request->file('img_about');
+        $input['img_about'] = time().'-about.'.$image->getClientOriginalExtension();
+        $image->move($destinationPath, $input['img_about']);
+
+        if ($request->hasfile('img_center')) {
+            $image = $request->file('img_center');
+            $input['img_center'] = time() . '-center.' . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $input['img_center']);
+        }
+        if ($request->hasfile('img_right')) {
+            $image = $request->file('img_right');
+            $input['img_right'] = time() . '-right.' . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $input['img_right']);
+        }
+        $input['about_us'] = $request->about_us;
+        $input['hot_line'] = $request->hot_line;
+        Content::create($input);
         return redirect()->route('content.index')
             ->with('success','Content created successfully');
     }
@@ -53,8 +77,8 @@ class ContentController extends Controller
      */
     public function show($id)
     {
-        $article = Content::find($id);
-        return view('content.show',compact('article'));
+//        $article = Content::find($id);
+//        return view('content.show',compact('article'));
     }
 
     /**
@@ -65,8 +89,8 @@ class ContentController extends Controller
      */
     public function edit($id)
     {
-        $article = Content::find($id);
-        return view('content.edit',compact('article'));
+        $content = Content::find($id);
+        return view('admin.content.edit',compact('content'));
     }
 
     /**
@@ -78,11 +102,46 @@ class ContentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        request()->validate([
-            'title' => 'required',
-            'body' => 'required',
+        $request->validate([
+            'about_us' => 'required',
+            'hot_line' => 'required',
         ]);
-        Content::find($id)->update($request->all());
+
+        if ($request->hasfile('logo')) {
+            $image = $request->file('logo');
+            $input['logo'] = time() . '-logo.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/upload/contents');
+            $image->move($destinationPath, $input['logo']);
+        } else {
+            $input['logo'] = $request->hidden_logo;
+        }
+        if ($request->hasfile('img_about')) {
+            $image = $request->file('img_about');
+            $input['img_about'] = time() . '-about.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/upload/contents');
+            $image->move($destinationPath, $input['img_about']);
+        } else {
+            $input['img_about'] = $request->hidden_about;
+        }
+        if ($request->hasfile('img_center')) {
+            $image = $request->file('img_center');
+            $input['img_center'] = time() . '-center.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/upload/contents');
+            $image->move($destinationPath, $input['img_center']);
+        } else {
+            $input['img_center'] = $request->hidden_center;
+        }
+        if ($request->hasfile('img_right')) {
+            $image = $request->file('img_right');
+            $input['img_right'] = time() . '-right.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/upload/contents');
+            $image->move($destinationPath, $input['img_right']);
+        } else {
+            $input['img_right'] = $request->hidden_right;
+        }
+        $input['about_us'] = $request->about_us;
+        $input['hot_line'] = $request->hot_line;
+        Content::find($id)->update($input);
         return redirect()->route('content.index')
             ->with('success','Content updated successfully');
     }

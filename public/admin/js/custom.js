@@ -1,9 +1,10 @@
 $(document).ready(function(){
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+    // $.ajaxSetup({
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     }
+    // });
+
     $('.status-change').click(function(){
         var url = '/admin/banner/updateStatusBanner';
         var id = $(this).val();
@@ -14,15 +15,15 @@ $(document).ready(function(){
             status = 0;
         }
         var data = {id:id ,status: status};
-        console.log(url);
-        console.log(data);
-        $.ajax({
-            type:'GET',
-            url: url,
-            data:data,
-            success:function(res){
-                console.log(res);
-            }
+        $.get(url, data, function(res){
+            console.log(res);
         });
     });
+
+    $('#editor-one').on('keyup keypress blur dragenter dragover drop focus keydown mouseout mouseup',function(){
+        var text = $(this).html();
+        $('#descr').html(text);
+    });
+
+
 });

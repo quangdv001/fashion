@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Banner;
+use App\Content;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,5 +26,13 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function show(){
+        $banner = Banner::getActiveBanner();
+        $content = Content::getLatestContent();
+        return view('index')
+            ->with('content', $content)
+            ->with('banner', $banner);
     }
 }

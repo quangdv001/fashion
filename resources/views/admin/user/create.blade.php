@@ -4,7 +4,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Sửa Banner</h3>
+                <h3>Thêm mới Banner</h3>
             </div>
             <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -26,19 +26,30 @@
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
+                            {{--<li class="dropdown">--}}
+                                {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>--}}
+                                {{--<ul class="dropdown-menu" role="menu">--}}
+                                    {{--<li><a href="#">Settings 1</a>--}}
+                                    {{--</li>--}}
+                                    {{--<li><a href="#">Settings 2</a>--}}
+                                    {{--</li>--}}
+                                {{--</ul>--}}
+                            {{--</li>--}}
+                            {{--<li><a class="close-link"><i class="fa fa-close"></i></a>--}}
+                            {{--</li>--}}
                         </ul>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
                         <br />
-                        <form action="{{ route('banner.update',$banner->id) }}" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" method="POST">
+                        <form action="{{ route('banner.store') }}" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" method="POST">
                             {{ csrf_field() }}
-                            {{ method_field('PUT') }}
+                            {{ method_field('POST') }}
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Tiêu đề <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="title" id="first-name" value="{{ $banner->title }}"  class="form-control col-md-7 col-xs-12 @if ($errors->has('title')) parsley-error @endif">
+                                    <input type="text" name="title" id="first-name"  class="form-control col-md-7 col-xs-12 @if ($errors->has('title')) parsley-error @endif">
                                     @if ($errors->has('title'))
                                         <ul class="parsley-errors-list filled" id=""><li class="parsley-required">{{ $errors->first('title') }}</li></ul>
                                     @endif
@@ -50,10 +61,9 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="file" name="img">
-                                    <input type="hidden" name="hidden_img" value="{{$banner->img}}">
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <img src="{{ asset('upload/banners/'.$banner->img) }}" width="200px" alt="">
+                                    @if ($errors->has('img'))
+                                        <ul class="parsley-errors-list filled" id=""><li class="parsley-required">{{ $errors->first('img') }}</li></ul>
+                                    @endif
                                 </div>
                             </div>
                             <div class="ln_solid"></div>

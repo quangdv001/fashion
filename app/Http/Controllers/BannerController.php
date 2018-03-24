@@ -118,9 +118,8 @@ class BannerController extends Controller
             ->with('success','Banner deleted successfully');
     }
 
-    public function updateStatusBanner(){
-        echo 1;die();
-        $request = request()->all();
-        return response()->json($request);
+    public function updateStatusBanner(Request $request){
+        $res = Banner::updateStatusBanner($request->id, $request->status);
+        return response()->json($res);
     }
 }

@@ -32,4 +32,9 @@
 <script src="{{ asset('admin/vendors/switchery/dist/switchery.min.js') }}"></script>
 <!-- Custom Theme Scripts -->
 <script src="{{ asset('admin/build/js/custom.min.js') }}"></script>
+<!-- bootstrap-wysiwyg -->
+<script src="{{ asset('admin/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js') }}"></script>
+<script src="{{ asset('admin/vendors/jquery.hotkeys/jquery.hotkeys.js') }}"></script>
+<script src="{{ asset('admin/vendors/google-code-prettify/src/prettify.js') }}"></script>
+
 <script src="{{ asset('admin/js/custom.js') }}"></script>
